@@ -31,6 +31,8 @@ class ImageListCollectionViewCell: UICollectionViewCell {
     
     func failedLoading() {
         
+        /* If */
+        
         loader.stopAnimating()
         imageContainer.backgroundColor = UIColor.groupTableViewBackground
         imageName.text = "Image failed to load"

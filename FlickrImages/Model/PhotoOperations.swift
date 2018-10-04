@@ -10,6 +10,8 @@ import UIKit
 
 class PendingOperations {
     
+    /* This class contains a dictionary to keep track of active and pending download operations for each cell in the collection view, and a corresponding operation queue. */
+    
     lazy var downloadsInProgress: [IndexPath: Operation] = [:]
     
     lazy var downloadQueue: OperationQueue = {
@@ -20,6 +22,8 @@ class PendingOperations {
 
 class ImageDownloader: Operation {
     
+    /* This class is using to track the status of each operation */
+    
     let photoObject: PhotoModel
     
     init(_ photoObject: PhotoModel) {
@@ -29,7 +33,7 @@ class ImageDownloader: Operation {
     override func main() {
         
         if isCancelled {
-            /* The code can optimise more by suspending the operation while user scrolling, then start image downloading of only the visible cells and cancel the other. For that purpose we can make use of isCancelled */
+            /* Check for cancellation before starting. Operations should regularly check if they have been cancelled before attempting long or intensive work. */
             return
         }
         
@@ -39,11 +43,12 @@ class ImageDownloader: Operation {
             return
         }
         
+        /* If there is data, create an image object and add it to the record, and move the state along. If there is no data, mark the record as failed and set the appropriate message as title. */
+        
         if !imageData.isEmpty {
             photoObject.image = UIImage(data:imageData)
             photoObject.state = .downloaded
         } else {
-            /* Image download failed. In this case image views colour will be gray and the title will be "Image failed to load", just to understand the situation */
             photoObject.state = .failed
             photoObject.image = nil
         }

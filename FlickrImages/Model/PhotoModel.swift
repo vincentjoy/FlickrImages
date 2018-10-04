@@ -8,7 +8,8 @@
 
 import UIKit
 
-enum PhotoModelState { /* Determines what is the status of the image download operation in the queue */
+enum PhotoModelState {
+    /* To represent the status of the image download operation in the queue */
     case new, downloaded, failed
 }
 

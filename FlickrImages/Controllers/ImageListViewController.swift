@@ -24,7 +24,7 @@ class ImageListViewController: UIViewController, UISearchBarDelegate {
         
         collectionViewDriver = ImageListViewModel(collectionView: outletObjects.collectionView)
         collectionViewDriver.delegate = self
-        outletObjects.searchBar.inputAccessoryView = createInputAccessoryView()
+        outletObjects.searchBar.inputAccessoryView = createInputAccessoryView() /* To place a done button on top of keyboard, which helps us to dismiss the keyboard */
         outletObjects.searchBar.becomeFirstResponder()
     }
     
@@ -45,6 +45,8 @@ class ImageListViewController: UIViewController, UISearchBarDelegate {
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        
+        /* When the clear all button in text field is clicked, I am changing back the UI as like the initial one, when app loaded for the frist time */
         if searchText.count==0 {
             self.searchText = ""
             collectionViewDriver.clearList()
@@ -90,7 +92,7 @@ class ImageListViewController: UIViewController, UISearchBarDelegate {
                             
                             if photos.count>0 {
                                 
-                                if self.paginationOngoing {
+                                if self.paginationOngoing { /* If this call was from the infinte scroll process, we need to dismiss the message displayed at the bottom and stop the activity indicator inside it */
                                     self.paginationOngoing = false
                                     self.presentPaginationIndicator(false)
                                 }
@@ -133,6 +135,8 @@ class ImageListViewController: UIViewController, UISearchBarDelegate {
     }
     
     private func presentPaginationIndicator(_ show: Bool) {
+        
+        /* To prsent and dismiss (with animation), the paginationIndicatorView, which shows the message of ongoing API call */
         
         if show {
             
