@@ -14,6 +14,7 @@ class ImageListViewController: UIViewController, UISearchBarDelegate {
     
     private var collectionViewDriver: ImageListViewModel!
     private let baseURL = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=3e7cc266ae2b0e0d78e279ce8e361736&format=json&nojsoncallback=1&safe_search=1&text="
+    private lazy var searchText = ""
     private lazy var paginationOngoing = false
     private lazy var paginationIndicatorHeight: CGFloat = 44
     
@@ -42,10 +43,18 @@ class ImageListViewController: UIViewController, UISearchBarDelegate {
         outletObjects.searchBar.resignFirstResponder()
     }
     
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText.count==0 {
+            self.searchText = ""
+            collectionViewDriver.clearList()
+        }
+    }
+    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         
         searchBar.resignFirstResponder()
         if let searchText = searchBar.text {
+            self.searchText = searchText
             fetchImages(imageSearch: searchText)
         }
     }
@@ -77,8 +86,9 @@ class ImageListViewController: UIViewController, UISearchBarDelegate {
                         DispatchQueue.main.async {
                             UIApplication.shared.isNetworkActivityIndicatorVisible = false
                             if photos.count>0 {
-                                print(photos)
+                                self.collectionViewDriver.reload(with: photos)
                             } else {
+                                self.collectionViewDriver.clearList()
                                 self.showAlert(title: "No results found", message: "Try again with another search")
                             }
                         }

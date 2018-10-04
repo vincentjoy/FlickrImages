@@ -18,8 +18,6 @@ class PhotoModel {
     
     init(dataSource: [String: Any]) {
         
-        print("\n\n\(dataSource)")
-        
         self.title = dataSource["title"] as? String
         
         if let id = dataSource["id"] as? String {

@@ -47,6 +47,14 @@ extension ImageListViewModel: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as? ImageListCollectionViewCell {
+            if indexPath.row < photos.count {
+                let photoData = photos[indexPath.row]
+                cell.configureCellWith(photoData: photoData)
+            }
+            return cell
+        }
         return UICollectionViewCell()
     }
 }
@@ -55,7 +63,7 @@ extension ImageListViewModel: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let cellWidth = UIScreen.main.bounds.size.width / 3
+        let cellWidth = UIScreen.main.bounds.size.width/3
         let padding: CGFloat = 8
         let titleHeight: CGFloat = 20
         let cellHeight: CGFloat = cellWidth + (3*padding) + titleHeight
