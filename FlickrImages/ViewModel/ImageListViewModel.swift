@@ -76,42 +76,6 @@ class ImageListViewModel: NSObject {
             pendingOperations.downloadQueue.addOperation(downloader)
         }
     }
-    
-    private func suspendAllOperations() {
-        pendingOperations.downloadQueue.isSuspended = true
-    }
-    
-    private func resumeAllOperations() {
-        pendingOperations.downloadQueue.isSuspended = false
-    }
-    
-    private func loadImagesForOnscreenCells() {
-        
-        let pathsArray = collectionView.indexPathsForVisibleItems
-        
-        let allPendingOperations = Set(pendingOperations.downloadsInProgress.keys)
-        
-        var toBeCancelled = allPendingOperations
-        let visiblePaths = Set(pathsArray)
-        toBeCancelled.subtract(visiblePaths)
-        
-        var toBeStarted = visiblePaths
-        toBeStarted.subtract(allPendingOperations)
-        
-        for indexPath in toBeCancelled {
-            if let pendingDownload = pendingOperations.downloadsInProgress[indexPath] {
-                pendingDownload.cancel()
-            }
-            pendingOperations.downloadsInProgress.removeValue(forKey: indexPath)
-        }
-        
-        for indexPath in toBeStarted {
-            let recordToProcess = photos[indexPath.item]
-            if recordToProcess.state != PhotoModelState.downloaded {
-                startDownload(for: recordToProcess, at: indexPath)
-            }
-        }
-    }
 }
 
 extension ImageListViewModel: UICollectionViewDataSource {
@@ -133,9 +97,7 @@ extension ImageListViewModel: UICollectionViewDataSource {
                 case .failed:
                     cell.failedLoading()
                 case .new:
-                    if !collectionView.isDragging && !collectionView.isDecelerating {
-                        startDownload(for: photoData, at: indexPath)
-                    }
+                    startDownload(for: photoData, at: indexPath)
                 case .downloaded:
                     print("Download complete")
                 }
@@ -161,23 +123,6 @@ extension ImageListViewModel: UICollectionViewDelegateFlowLayout {
 }
 
 extension ImageListViewModel: UIScrollViewDelegate {
-    
-    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        suspendAllOperations()
-    }
-    
-    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        
-        if !decelerate {
-            loadImagesForOnscreenCells()
-            resumeAllOperations()
-        }
-    }
-    
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        loadImagesForOnscreenCells()
-        resumeAllOperations()
-    }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
