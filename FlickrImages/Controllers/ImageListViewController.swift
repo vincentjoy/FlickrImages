@@ -64,6 +64,10 @@ class ImageListViewController: UIViewController, UISearchBarDelegate {
     
     private func fetchImages(imageSearch: String) {
         
+        guard imageSearch.count>0 else {
+            return
+        }
+        
         var photos: [PhotoModel] = []
         
         if let dataSourceURL = URL(string: (baseURL + imageSearch)) {
@@ -136,6 +140,9 @@ class ImageListViewController: UIViewController, UISearchBarDelegate {
     
     private func presentPaginationIndicator(_ show: Bool) {
         
+        guard searchText.count>0 else {
+            return
+        }
         /* To prsent and dismiss (with animation), the paginationIndicatorView, which shows the message of ongoing API call */
         
         if show {

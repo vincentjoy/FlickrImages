@@ -41,6 +41,7 @@ class ImageListViewModel: NSObject {
     }
     
     func clearList() {
+        pendingOperations.downloadQueue.cancelAllOperations()
         collectionView.isHidden = true
         photos = [PhotoModel]()
         collectionView.reloadData()
