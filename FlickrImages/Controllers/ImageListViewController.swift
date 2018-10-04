@@ -12,10 +12,10 @@ class ImageListViewController: UIViewController, UISearchBarDelegate {
     
     @IBOutlet var outletObjects: ImageListOutletObject!
     
-    private var collectionViewDriver: ImageListViewModel!
+    private var collectionViewDriver: ImageListViewModel! /* Where all the processes related to table view is happening */
     private let baseURL = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=3e7cc266ae2b0e0d78e279ce8e361736&format=json&nojsoncallback=1&safe_search=1&text="
     private lazy var searchText = ""
-    private lazy var paginationOngoing = false
+    private lazy var paginationOngoing = false /* When the user reaches the bottom, pagination starts and if he tries to scroll again, to avoid multiple API calls, we are setting this flag */
     private lazy var paginationIndicatorHeight: CGFloat = 44
     
     override func viewDidLoad() {
@@ -136,6 +136,7 @@ class ImageListViewController: UIViewController, UISearchBarDelegate {
         
         if show {
             
+            outletObjects.paginationIndicatorView.isHidden = false
             outletObjects.paginationIndicator.startAnimating()
             outletObjects.paginationIndicatorBottom.constant = 0
             UIView.animate(withDuration: 0.25) {
@@ -148,6 +149,7 @@ class ImageListViewController: UIViewController, UISearchBarDelegate {
             UIView.animate(withDuration: 0.25) {
                 self.view.layoutIfNeeded()
                 self.outletObjects.paginationIndicator.stopAnimating()
+                self.outletObjects.paginationIndicatorView.isHidden = true
             }
         }
     }

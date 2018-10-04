@@ -9,7 +9,7 @@
 import UIKit
 
 protocol ViewModelDelegate: class {
-    func startPagination()
+    func startPagination() /* To indicate page scrolled to the bottom, so next round of API call must happen.  */
 }
 
 class ImageListViewModel: NSObject {
@@ -29,7 +29,7 @@ class ImageListViewModel: NSObject {
         
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.contentInset = UIEdgeInsetsMake(0, 0, 44, 0)
+        collectionView.contentInset = UIEdgeInsetsMake(0, 0, 44, 0) /* To make room for the pagination message flash card that appears from the bottom, we are giving an inset 44 to the bottom, which is same as that paginationIndicatorView height*/
         self.collectionView.reloadData()
     }
     

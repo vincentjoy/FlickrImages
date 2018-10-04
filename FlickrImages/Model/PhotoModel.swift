@@ -8,7 +8,7 @@
 
 import UIKit
 
-enum PhotoModelState {
+enum PhotoModelState { /* Determines what is the status of the image download operation in the queue */
     case new, downloaded, failed
 }
 
@@ -20,7 +20,7 @@ class PhotoModel {
     var title: String?
     var farm: Int?
     var url: URL?
-    var image: UIImage?
+    var image: UIImage? /* Image will be added only after the state changes to .downloaded */
     var state = PhotoModelState.new
     
     init(dataSource: [String: Any]) {

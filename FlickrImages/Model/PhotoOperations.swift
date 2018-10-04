@@ -29,6 +29,7 @@ class ImageDownloader: Operation {
     override func main() {
         
         if isCancelled {
+            /* The code can optimise more by suspending the operation while user scrolling, then start image downloading of only the visible cells and cancel the other. For that purpose we can make use of isCancelled */
             return
         }
         
@@ -42,6 +43,7 @@ class ImageDownloader: Operation {
             photoObject.image = UIImage(data:imageData)
             photoObject.state = .downloaded
         } else {
+            /* Image download failed. In this case image views colour will be gray and the title will be "Image failed to load", just to understand the situation */
             photoObject.state = .failed
             photoObject.image = nil
         }
