@@ -15,25 +15,25 @@ class PhotoModel {
     var server: String?
     var title: String?
     var farm: Int?
+    var url: URL?
     
     init(dataSource: [String: Any]) {
         
         self.title = dataSource["title"] as? String
         
-        if let id = dataSource["id"] as? String {
+        if let id = dataSource["id"] as? String,
+            let secret = dataSource["secret"] as? String,
+            let server = dataSource["server"] as? String,
+            let farm = dataSource["farm"] as? Int {
+            
             self.id = id
-        }
-        
-        if let secret = dataSource["secret"] as? String {
             self.secret = secret
-        }
-        
-        if let server = dataSource["server"] as? String {
             self.server = server
-        }
-        
-        if let farm = dataSource["farm"] as? Int {
             self.farm = farm
+            
+            if let url = URL(string: "http://farm\(farm).static.flickr.com/\(server)/\(id)_\(secret).jpg") {
+                self.url = url
+            }
         }
     }
 }
