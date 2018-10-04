@@ -14,4 +14,5 @@ class ImageListOutletObject: NSObject {
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var paginationIndicator: UIActivityIndicatorView!
     @IBOutlet weak var paginationIndicatorView: UIView!
+    @IBOutlet weak var paginationIndicatorBottom: NSLayoutConstraint!
 }
