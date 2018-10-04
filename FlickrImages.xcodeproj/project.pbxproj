@@ -16,6 +16,7 @@
 		2F0DFDB121659CEF008B7A33 /* ImageListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F0DFDB021659CEF008B7A33 /* ImageListViewController.swift */; };
 		2F0DFDB321659DBF008B7A33 /* ImageListOutletObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F0DFDB221659DBF008B7A33 /* ImageListOutletObject.swift */; };
 		2F0DFDB521659EDF008B7A33 /* ImageListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F0DFDB421659EDF008B7A33 /* ImageListCollectionViewCell.swift */; };
+		2F0DFDB72165A00F008B7A33 /* PhotoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F0DFDB62165A00F008B7A33 /* PhotoModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		2F0DFDB021659CEF008B7A33 /* ImageListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageListViewController.swift; sourceTree = "<group>"; };
 		2F0DFDB221659DBF008B7A33 /* ImageListOutletObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageListOutletObject.swift; sourceTree = "<group>"; };
 		2F0DFDB421659EDF008B7A33 /* ImageListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageListCollectionViewCell.swift; sourceTree = "<group>"; };
+		2F0DFDB62165A00F008B7A33 /* PhotoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +137,7 @@
 		2F0DFDAC21659C97008B7A33 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				2F0DFDB62165A00F008B7A33 /* PhotoModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -297,6 +300,7 @@
 				2F0DFDB121659CEF008B7A33 /* ImageListViewController.swift in Sources */,
 				2F0DFDB321659DBF008B7A33 /* ImageListOutletObject.swift in Sources */,
 				2F0DFDB521659EDF008B7A33 /* ImageListCollectionViewCell.swift in Sources */,
+				2F0DFDB72165A00F008B7A33 /* PhotoModel.swift in Sources */,
 				2F0DFD7F21659BFD008B7A33 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

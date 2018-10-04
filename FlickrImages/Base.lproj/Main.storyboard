@@ -23,7 +23,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="sYt-kx-73X">
-                                <rect key="frame" x="0.0" y="76" width="375" height="591"/>
+                                <rect key="frame" x="0.0" y="76" width="375" height="547"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Ijf-Jm-1fI">
                                     <size key="itemSize" width="135" height="134"/>
@@ -76,15 +76,43 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rhJ-bx-ce2">
+                                <rect key="frame" x="0.0" y="623" width="375" height="44"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="1iO-Gc-618">
+                                        <rect key="frame" x="94.5" y="12" width="186" height="20"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading more images.." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e6t-V1-WWJ">
+                                                <rect key="frame" x="0.0" y="0.0" width="158" height="20"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="shi-PI-OLR">
+                                                <rect key="frame" x="166" y="0.0" width="20" height="20"/>
+                                            </activityIndicatorView>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="1iO-Gc-618" firstAttribute="centerY" secondItem="rhJ-bx-ce2" secondAttribute="centerY" id="b1c-Kb-lWS"/>
+                                    <constraint firstAttribute="height" constant="44" id="k9T-ro-Wen"/>
+                                    <constraint firstItem="1iO-Gc-618" firstAttribute="centerX" secondItem="rhJ-bx-ce2" secondAttribute="centerX" id="oLC-az-d2V"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="sYt-kx-73X" secondAttribute="trailing" id="4Nx-Pe-g7l"/>
                             <constraint firstItem="sYt-kx-73X" firstAttribute="top" secondItem="Q81-MR-mKz" secondAttribute="bottom" id="4QM-bN-oBb"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="sYt-kx-73X" secondAttribute="bottom" id="A5A-Hc-qwX"/>
+                            <constraint firstItem="rhJ-bx-ce2" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="8dx-ur-5fN"/>
                             <constraint firstItem="Q81-MR-mKz" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="CeP-1A-m93"/>
+                            <constraint firstItem="rhJ-bx-ce2" firstAttribute="top" secondItem="sYt-kx-73X" secondAttribute="bottom" id="HkC-hO-rGQ"/>
+                            <constraint firstAttribute="bottom" secondItem="rhJ-bx-ce2" secondAttribute="bottom" id="P78-e0-McQ"/>
                             <constraint firstItem="Q81-MR-mKz" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="bIu-D3-Q6c"/>
                             <constraint firstItem="Q81-MR-mKz" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="jsk-xL-jzM"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="rhJ-bx-ce2" secondAttribute="trailing" id="kLF-c3-hUm"/>
                             <constraint firstItem="sYt-kx-73X" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="lna-7T-eOT"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -97,6 +125,8 @@
                 <customObject id="CnV-Pe-wEz" customClass="ImageListOutletObject" customModule="FlickrImages" customModuleProvider="target">
                     <connections>
                         <outlet property="collectionView" destination="sYt-kx-73X" id="OJ7-zE-0qf"/>
+                        <outlet property="paginationIndicator" destination="shi-PI-OLR" id="Lka-ke-etm"/>
+                        <outlet property="paginationIndicatorView" destination="rhJ-bx-ce2" id="8C4-In-R0x"/>
                         <outlet property="searchBar" destination="Q81-MR-mKz" id="iuJ-PF-02K"/>
                     </connections>
                 </customObject>
