@@ -8,8 +8,13 @@
 
 import UIKit
 
+protocol ViewModelDelegate: class {
+    func startPagination()
+}
+
 class ImageListViewModel: NSObject {
 
+    weak var delegate: ViewModelDelegate?
     private let collectionView: UICollectionView
     private let cellIdentifier = "ImageListCollectionViewCell"
     private var photos: [PhotoModel] = []
@@ -28,7 +33,7 @@ class ImageListViewModel: NSObject {
     
     func reload(with dataSource: [PhotoModel]) {
         
-        photos = dataSource
+        photos += dataSource
         collectionView.reloadData()
         collectionView.isHidden = false
     }
@@ -69,5 +74,18 @@ extension ImageListViewModel: UICollectionViewDelegateFlowLayout {
         let cellHeight: CGFloat = cellWidth + (3*padding) + titleHeight
         
         return CGSize(width: cellWidth, height: cellHeight)
+    }
+}
+
+extension ImageListViewModel: UIScrollViewDelegate {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+        let  height = scrollView.frame.size.height
+        let contentYoffset = scrollView.contentOffset.y
+        let distanceFromBottom = scrollView.contentSize.height - contentYoffset
+        if distanceFromBottom < height {
+            self.delegate?.startPagination()
+        }
     }
 }

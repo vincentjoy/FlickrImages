@@ -23,6 +23,7 @@ class ImageListViewController: UIViewController, UISearchBarDelegate {
         super.viewDidLoad()
         
         collectionViewDriver = ImageListViewModel(collectionView: outletObjects.collectionView)
+        collectionViewDriver.delegate = self
         outletObjects.searchBar.inputAccessoryView = createInputAccessoryView()
         outletObjects.searchBar.becomeFirstResponder()
     }
@@ -84,9 +85,17 @@ class ImageListViewController: UIViewController, UISearchBarDelegate {
                         }
                         
                         DispatchQueue.main.async {
+                            
                             UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                            
                             if photos.count>0 {
+                                
+                                if self.paginationOngoing {
+                                    self.paginationOngoing = false
+                                    self.presentPaginationIndicator(false)
+                                }
                                 self.collectionViewDriver.reload(with: photos)
+                                
                             } else {
                                 self.collectionViewDriver.clearList()
                                 self.showAlert(title: "No results found", message: "Try again with another search")
@@ -121,5 +130,37 @@ class ImageListViewController: UIViewController, UISearchBarDelegate {
         alertController.addAction(okAction)
         
         present(alertController, animated: true, completion: nil)
+    }
+    
+    private func presentPaginationIndicator(_ show: Bool) {
+        
+        if show {
+            
+            outletObjects.paginationIndicator.startAnimating()
+            outletObjects.paginationIndicatorBottom.constant = 0
+            UIView.animate(withDuration: 0.25) {
+                self.view.layoutIfNeeded()
+            }
+            
+        } else {
+            
+            outletObjects.paginationIndicatorBottom.constant = -paginationIndicatorHeight
+            UIView.animate(withDuration: 0.25) {
+                self.view.layoutIfNeeded()
+                self.outletObjects.paginationIndicator.stopAnimating()
+            }
+        }
+    }
+}
+
+extension ImageListViewController: ViewModelDelegate {
+    
+    func startPagination() {
+        
+        if !paginationOngoing {
+            paginationOngoing = true
+            self.presentPaginationIndicator(true)
+            fetchImages(imageSearch: searchText)
+        }
     }
 }
