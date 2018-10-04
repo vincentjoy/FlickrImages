@@ -32,6 +32,12 @@ class ImageListViewModel: NSObject {
         collectionView.reloadData()
         collectionView.isHidden = false
     }
+    
+    func clearList() {
+        collectionView.isHidden = true
+        photos = [PhotoModel]()
+        collectionView.reloadData()
+    }
 }
 
 extension ImageListViewModel: UICollectionViewDataSource {
