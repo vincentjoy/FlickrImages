@@ -17,5 +17,22 @@ class ImageListCollectionViewCell: UICollectionViewCell {
     func configureCellWith(photoData: PhotoModel) {
         
         imageName.text = photoData.title ?? "He who must not be named"
+        
+        if let image = photoData.image {
+            imageContainer.backgroundColor = UIColor.clear
+            imageContainer.image = image
+            loader.stopAnimating()
+        } else {
+            imageContainer.image = UIImage()
+            imageContainer.backgroundColor = UIColor.groupTableViewBackground
+            loader.startAnimating()
+        }
+    }
+    
+    func failedLoading() {
+        
+        loader.stopAnimating()
+        imageContainer.backgroundColor = UIColor.groupTableViewBackground
+        imageName.text = "Image failed to load"
     }
 }

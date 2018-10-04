@@ -18,6 +18,7 @@ class ImageListViewModel: NSObject {
     private let collectionView: UICollectionView
     private let cellIdentifier = "ImageListCollectionViewCell"
     private var photos: [PhotoModel] = []
+    private let pendingOperations = PendingOperations()
     
     init(collectionView: UICollectionView) {
         
@@ -43,6 +44,27 @@ class ImageListViewModel: NSObject {
         photos = [PhotoModel]()
         collectionView.reloadData()
     }
+    
+    private func startDownload(for photoData: PhotoModel, at indexPath: IndexPath) {
+        
+        guard pendingOperations.downloadsInProgress[indexPath] == nil else {
+            return
+        }
+        
+        let downloader = ImageDownloader(photoData)
+        downloader.completionBlock = {
+            if downloader.isCancelled {
+                return
+            }
+            DispatchQueue.main.async {
+                self.pendingOperations.downloadsInProgress.removeValue(forKey: indexPath)
+                self.collectionView.reloadItems(at: [indexPath])
+            }
+        }
+        
+        pendingOperations.downloadsInProgress[indexPath] = downloader
+        pendingOperations.downloadQueue.addOperation(downloader)
+    }
 }
 
 extension ImageListViewModel: UICollectionViewDataSource {
@@ -54,10 +76,22 @@ extension ImageListViewModel: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as? ImageListCollectionViewCell {
-            if indexPath.row < photos.count {
-                let photoData = photos[indexPath.row]
+            
+            if indexPath.item < photos.count {
+                
+                let photoData = photos[indexPath.item]
                 cell.configureCellWith(photoData: photoData)
+                
+                switch (photoData.state) {
+                case .failed:
+                    cell.failedLoading()
+                case .new:
+                    startDownload(for: photoData, at: indexPath)
+                case .downloaded:
+                    print("Download complete")
+                }
             }
+            
             return cell
         }
         return UICollectionViewCell()

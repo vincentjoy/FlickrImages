@@ -8,6 +8,10 @@
 
 import UIKit
 
+enum PhotoModelState {
+    case new, downloaded, failed
+}
+
 class PhotoModel {
     
     var id: String?
@@ -16,6 +20,8 @@ class PhotoModel {
     var title: String?
     var farm: Int?
     var url: URL?
+    var image: UIImage?
+    var state = PhotoModelState.new
     
     init(dataSource: [String: Any]) {
         

@@ -18,6 +18,7 @@
 		2F0DFDB521659EDF008B7A33 /* ImageListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F0DFDB421659EDF008B7A33 /* ImageListCollectionViewCell.swift */; };
 		2F0DFDB72165A00F008B7A33 /* PhotoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F0DFDB62165A00F008B7A33 /* PhotoModel.swift */; };
 		2F0DFDB92165A349008B7A33 /* ImageListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F0DFDB82165A349008B7A33 /* ImageListViewModel.swift */; };
+		2F0DFDBB2165B9DB008B7A33 /* PhotoOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F0DFDBA2165B9DB008B7A33 /* PhotoOperations.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,7 @@
 		2F0DFDB421659EDF008B7A33 /* ImageListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageListCollectionViewCell.swift; sourceTree = "<group>"; };
 		2F0DFDB62165A00F008B7A33 /* PhotoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoModel.swift; sourceTree = "<group>"; };
 		2F0DFDB82165A349008B7A33 /* ImageListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageListViewModel.swift; sourceTree = "<group>"; };
+		2F0DFDBA2165B9DB008B7A33 /* PhotoOperations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoOperations.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,6 +142,7 @@
 			isa = PBXGroup;
 			children = (
 				2F0DFDB62165A00F008B7A33 /* PhotoModel.swift */,
+				2F0DFDBA2165B9DB008B7A33 /* PhotoOperations.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -306,6 +309,7 @@
 				2F0DFDB521659EDF008B7A33 /* ImageListCollectionViewCell.swift in Sources */,
 				2F0DFDB72165A00F008B7A33 /* PhotoModel.swift in Sources */,
 				2F0DFD7F21659BFD008B7A33 /* AppDelegate.swift in Sources */,
+				2F0DFDBB2165B9DB008B7A33 /* PhotoOperations.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
